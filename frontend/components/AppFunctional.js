@@ -92,6 +92,17 @@ export default function AppFunctional(props) {
 
   function onSubmit(evt) {
     // payloadu POST etmek için bir submit handlera da ihtiyacınız var.
+    evt.preventDefault();
+    const table = [
+      [1, 1], [2, 1], [3, 1],
+      [1, 2], [2, 2], [3, 2],
+      [1, 3], [2, 3], [3, 3]
+    ]
+    let index = getXY();
+    console.log("submit calisiyor");
+    const postData = { x: table[index][0], y: table[index][1], steps: data.steps, email: data.email};
+    console.log(postData);
+    
   }
 
   return (
@@ -119,7 +130,7 @@ export default function AppFunctional(props) {
         <button id="down" onClick={() => ilerle("down")}>AŞAĞI</button>
         <button id="reset" onClick={() => reset()}>reset</button>
       </div>
-      <form>
+      <form onSubmit={onSubmit}>
         <input id="email" type="email" placeholder="email girin"value={data.email} onChange={onChange}></input>
         <input id="submit" type="submit"></input>
       </form>
