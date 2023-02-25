@@ -7,7 +7,7 @@ const initialSteps = 0
 const initialIndex = 4 //  "B" nin bulunduğu indexi
 
 const initialArr = [null, null, null, null, "B", null, null, null, null];
-const initialData = {message: "", steps: 0, email: ""};
+const initialData = { message: "", steps: 0, email: "" };
 
 export default function AppFunctional(props) {
   // AŞAĞIDAKİ HELPERLAR SADECE ÖNERİDİR.
@@ -47,32 +47,28 @@ export default function AppFunctional(props) {
     // Bu helper bir yön ("sol", "yukarı", vb.) alır ve "B" nin bir sonraki indeksinin ne olduğunu hesaplar.
     // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için,
     // şu anki indeksi değiştirmemeli.
-    setData({...data, message: ""});
+    setData({ ...data, message: "" });
     const yonler = { left: "Sola", right: "Sağa", up: "Yukarı", down: "Aşağı" }
 
     let index = getXY();
     if (yon === "left" && [1, 2, 4, 5, 7, 8].includes(index)) {
-        index -= 1;
-        return index;
+      index -= 1;
+      return index;
     }
     else if (yon === "right" && [0, 1, 3, 4, 6, 7].includes(index)) {
-        index += 1;
-        return index;
+      index += 1;
+      return index;
     }
     else if (yon === "up" && [3, 4, 5, 6, 7, 8].includes(index)) {
-        index -= 3;
-        return index;
+      index -= 3;
+      return index;
     }
     else if (yon === "down" && [0, 1, 2, 3, 4, 5].includes(index)) {
-        index += 3;
-        return index;
+      index += 3;
+      return index;
     }
     else {
-      console.log("else calisti")
-      console.log(`${yonler[yon]} gidemezsiniz.`)
-      
-      setData({...data, message: `${yonler[yon]} gidemezsiniz.`});
-      console.log(data)
+      setData({ ...data, message: `${yonler[yon]} gidemezsiniz.` });
       return "Error";
     }
   }
@@ -90,6 +86,7 @@ export default function AppFunctional(props) {
 
   function onChange(evt) {
     // inputun değerini güncellemek için bunu kullanabilirsiniz
+    setData({ ...data, email: evt.target.value });
   }
 
   function onSubmit(evt) {
@@ -119,10 +116,10 @@ export default function AppFunctional(props) {
         <button id="up" onClick={() => ilerle("up")}>YUKARI</button>
         <button id="right" onClick={() => ilerle("right")}>SAĞ</button>
         <button id="down" onClick={() => ilerle("down")}>AŞAĞI</button>
-        <button id="reset">reset</button>
+        <button id="reset" onClick={() => reset()}>reset</button>
       </div>
       <form>
-        <input id="email" type="email" placeholder="email girin"></input>
+        <input id="email" type="email" placeholder="email girin"value={data.email} onChange={onChange}></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
