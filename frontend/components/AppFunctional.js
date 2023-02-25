@@ -81,6 +81,7 @@ export default function AppFunctional(props) {
       let newArr = Array(9).fill(null);
       newArr[index] = "B";
       setArr(newArr);
+      setData({ ...data, steps: data.steps +=1 });
     }
   }
 
