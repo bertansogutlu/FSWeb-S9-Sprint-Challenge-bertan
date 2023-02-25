@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import axios from 'axios';
 
 // önerilen başlangıç stateleri
 const initialMessage = ''
@@ -102,7 +103,16 @@ export default function AppFunctional(props) {
     console.log("submit calisiyor");
     const postData = { x: table[index][0], y: table[index][1], steps: data.steps, email: data.email};
     console.log(postData);
-    
+
+    axios.post('http://localhost:9000/api/result', postData)
+    .then(function (response) {
+      console.log(response);
+      setData({ ...data, message: response.data.message });
+    })
+    .catch(function (error) {
+      console.log(error);
+      setData({ ...data, message: error.response.data.message });
+    });
   }
 
   return (
