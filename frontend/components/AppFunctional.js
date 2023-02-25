@@ -31,7 +31,7 @@ export default function AppFunctional(props) {
       [1, 2], [2, 2], [3, 2],
       [1, 3], [2, 3], [3, 3]
     ]
-
+    
     let index = getXY();
 
     return `Koordinatlar (${table[index][0]}, ${table[index][1]})`;
@@ -49,7 +49,7 @@ export default function AppFunctional(props) {
     // Gridin kenarına ulaşıldığında başka gidecek yer olmadığı için,
     // şu anki indeksi değiştirmemeli.
     setData({ ...data, message: "" });
-    const yonler = { left: "Sola", right: "Sağa", up: "Yukarı", down: "Aşağı" }
+    const yonler = { left: "Sola", right: "Sağa", up: "Yukarıya", down: "Aşağıya" }
 
     let index = getXY();
     if (yon === "left" && [1, 2, 4, 5, 7, 8].includes(index)) {
@@ -69,7 +69,7 @@ export default function AppFunctional(props) {
       return index;
     }
     else {
-      setData({ ...data, message: `${yonler[yon]} gidemezsiniz.` });
+      setData({ ...data, message: `${yonler[yon]} gidemezsiniz` });
       return "Error";
     }
   }
@@ -82,7 +82,8 @@ export default function AppFunctional(props) {
       let newArr = Array(9).fill(null);
       newArr[index] = "B";
       setArr(newArr);
-      setData({ ...data, steps: data.steps +=1 });
+      const newStep = data.steps + 1;
+      setData({ ...data, steps: newStep });
     }
   }
 
@@ -111,6 +112,7 @@ export default function AppFunctional(props) {
     })
     .catch(function (error) {
       console.log(error);
+      reset();
       setData({ ...data, message: error.response.data.message });
     });
   }
