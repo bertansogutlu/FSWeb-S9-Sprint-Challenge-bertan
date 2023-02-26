@@ -82,8 +82,7 @@ export default function AppFunctional(props) {
       let newArr = Array(9).fill(null);
       newArr[index] = "B";
       setArr(newArr);
-      const newStep = data.steps + 1;
-      setData({ ...data, steps: newStep });
+      setData({ ...data, steps: data.steps + 1 });
     }
   }
 
@@ -101,20 +100,18 @@ export default function AppFunctional(props) {
       [1, 3], [2, 3], [3, 3]
     ]
     let index = getXY();
-    console.log("submit calisiyor");
     const postData = { x: table[index][0], y: table[index][1], steps: data.steps, email: data.email};
-    console.log(postData);
 
     axios.post('http://localhost:9000/api/result', postData)
     .then(function (response) {
       console.log(response);
-      setData({ ...data, message: response.data.message });
+      setData({ ...data, email:"", message: response.data.message });
     })
     .catch(function (error) {
       console.log(error);
-      reset();
-      setData({ ...data, message: error.response.data.message });
+      setData({ ...data, email:"", message: error.response.data.message });
     });
+    console.log(data);
   }
 
   return (
@@ -143,7 +140,7 @@ export default function AppFunctional(props) {
         <button id="reset" onClick={() => reset()}>reset</button>
       </div>
       <form onSubmit={onSubmit}>
-        <input id="email" type="email" placeholder="email girin"value={data.email} onChange={onChange}></input>
+        <input id="email" type="email" placeholder="email girin" value={data.email} onChange={onChange}></input>
         <input id="submit" type="submit"></input>
       </form>
     </div>
